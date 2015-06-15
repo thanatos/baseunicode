@@ -4,8 +4,8 @@ import math
 import re
 import sys
 
-import alphabet
-import fnv
+from . import alphabet
+from . import fnv
 
 
 def number_of_usable_bits(usable_chars):
