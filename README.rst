@@ -22,8 +22,8 @@ use of such characters.
 Most channels handle unicode data just fine, so why stop at 64 characters?
 
 ``baseunicode`` is intended for one-off manual transfers. Production stuff
-should probaby use ``base64``, since the output is more recognizable and less
-susceptible to corruption, or just fine a way to actully transmit raw bytes.
+should probably use ``base64``, since the output is more recognizable and less
+susceptible to corruption, or just fine a way to actually transmit raw bytes.
 
 
 Format
