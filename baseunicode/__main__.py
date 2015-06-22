@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import math
 import re
 import sys
@@ -92,14 +93,22 @@ def decode(usable_chars, stream):
         ))
 
 
-if __name__ == '__main__':
-    if sys.argv[1] == 'encode':
+def main():
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest='command')
+
+    encode_parser = subparsers.add_parser('encode')
+    decode_parser = subparsers.add_parser('decode')
+    info_parser = subparsers.add_parser('info')
+
+    pargs = parser.parse_args()
+    if pargs.command == 'encode':
         for c in encode(alphabet.USABLE_CHARS, sys.stdin.buffer):
             sys.stdout.write(c)
-    elif sys.argv[1] == 'decode':
+    elif pargs.command == 'decode':
         for b in decode(alphabet.USABLE_CHARS, sys.stdin):
             sys.stdout.buffer.write(bytes((b,)))
-    elif sys.argv[1] == 'about':
+    elif pargs.command == 'about':
         print(
             'Number of usable bits per character: {}'.format(
                 number_of_usable_bits(alphabet.USABLE_CHARS)
@@ -113,3 +122,12 @@ if __name__ == '__main__':
                 math.log2(len(alphabet.USABLE_CHARS))
             )
         )
+    elif pargs.command is None:
+        parser.print_usage()
+        sys.exit(1)
+    else:
+        assert False
+
+
+if __name__ == '__main__':
+    main()
